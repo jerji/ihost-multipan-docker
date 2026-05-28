@@ -1,4 +1,4 @@
-ARG BASE_VERSION=1.0.0
+ARG BASE_VERSION=1.0.2
 ARG TARGETARCH=amd64
 
 FROM ghcr.io/ihost-open-source-project/hassio-ihost-silabs-multiprotocol-${TARGETARCH}:${BASE_VERSION}
@@ -46,7 +46,7 @@ RUN if [ "$TARGETARCH" = "armv7" ]; then \
         apt-get install -y --no-install-recommends python3-pip \
         && rm -rf /var/lib/apt/lists/*; \
     fi && \
-    pip install universal-silabs-flasher==0.0.31
+    pip install universal-silabs-flasher==1.0.3
 
 COPY rootfs /
 

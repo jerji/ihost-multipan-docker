@@ -2,11 +2,8 @@
 
 This is a standalone container based on the Sonoff iHost multiprotocol add-on (CPCD/OTBR/zigbeed), with no HAOS dependency. It works with ZHA/Zigbee2MQTT via EZSP over TCP and exposes the OTBR Web UI/API.
 
-![](https://img.shields.io/github/license/antoniocifu/ihost-multipan-docker.svg)
-![](https://img.shields.io/github/stars/antoniocifu/ihost-multipan-docker)
-![](https://img.shields.io/docker/v/antoniocifu/ihost-multipan-docker)
-![](https://img.shields.io/docker/pulls/antoniocifu/ihost-multipan-docker.svg)
-![](https://img.shields.io/docker/image-size/antoniocifu/ihost-multipan-docker.svg)
+![](https://img.shields.io/github/license/jerji/ihost-multipan-docker.svg)
+![](https://img.shields.io/github/stars/jerji/ihost-multipan-docker)
 
 # ❗ Attention ❗
 
@@ -17,7 +14,8 @@ I have only provided a `standalone` version of the Silabs multiprotocol containe
 ## Project lineage and scope
 
 - Original project: https://github.com/b2un0/silabs-multipan-docker — it provided a standalone container aligned with the Home Assistant add-on: https://github.com/home-assistant/addons/tree/master/silabs-multiprotocol
-- This repository: https://github.com/antoniocifu/ihost-multipan-docker — it provides a standalone container aligned with the Sonoff iHost add-on: https://github.com/iHost-Open-Source-Project/hassio-ihost-addon/tree/master/hassio-ihost-silabs-multiprotocol
+- Parent project: https://github.com/antoniocifu/ihost-multipan-docker — it provides a standalone container aligned with the Sonoff iHost add-on: https://github.com/iHost-Open-Source-Project/hassio-ihost-addon/tree/master/hassio-ihost-silabs-multiprotocol
+- This repository: https://github.com/jerji/ihost-multipan-docker — a fork of the above, tracking the Sonoff iHost add-on stack.
 
 This repo focuses on the iHost add-on stack and does not aim to support the Home Assistant add-on.
 
@@ -70,7 +68,7 @@ docker run --name multipan \
             --volume ~/multipan/:/data \
             --env DEVICE="/dev/ttyUSB0" \
             --env BACKBONE_IF="eth0" \
-            antoniocifu/ihost-multipan-docker:latest
+            ghcr.io/jerji/ihost-multipan-docker:latest
 ```
 
 ### With docker compose

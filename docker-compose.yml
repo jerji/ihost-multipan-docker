@@ -2,7 +2,7 @@ version: "3.9"
 services:
   multipan:
     container_name: multipan
-    image: antoniocifu/ihost-multipan-docker:latest
+    image: ghcr.io/jerji/ihost-multipan-docker:latest
     restart: unless-stopped
     privileged: true # don't change this !
     network_mode: host # don't change this !

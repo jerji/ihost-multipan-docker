@@ -11,6 +11,9 @@ env:
 jobs:
   get_versions:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
     outputs:
       base_version: ${{ steps.base_version.outputs.base_version }}
       self_version: ${{ steps.self_version.outputs.self_version }}
@@ -27,12 +30,20 @@ jobs:
         run: |
           echo ${{ steps.base_version.outputs.base_version }}
 
+      - name: Login to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: self version
         id: self_version
         run: |
-          docker pull antoniocifu/ihost-multipan-docker:latest || echo "No existing latest image on Docker Hub yet."
-          if docker image inspect antoniocifu/ihost-multipan-docker:latest > /dev/null 2>&1; then
-            echo self_version=$(docker inspect antoniocifu/ihost-multipan-docker:latest --format '{{ index .Config.Labels "org.opencontainers.image.version"}}') >> $GITHUB_OUTPUT
+          SELF_IMAGE=ghcr.io/${{ github.repository }}:latest
+          docker pull "$SELF_IMAGE" || echo "No existing latest image on GHCR yet."
+          if docker image inspect "$SELF_IMAGE" > /dev/null 2>&1; then
+            echo self_version=$(docker inspect "$SELF_IMAGE" --format '{{ index .Config.Labels "org.opencontainers.image.version"}}') >> $GITHUB_OUTPUT
           else
             echo self_version= >> $GITHUB_OUTPUT
           fi
