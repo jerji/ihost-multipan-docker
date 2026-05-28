@@ -1,7 +1,12 @@
 ARG BASE_VERSION=1.0.2
-ARG TARGETARCH=amd64
 
+# TARGETARCH is an automatic per-platform BuildKit ARG (amd64 / arm64 / arm).
+# Do NOT give it a default — that pins every platform to one arch. CI remaps the
+# -arm64/-arm names to the upstream -aarch64/-armv7 images via build-contexts.
 FROM ghcr.io/ihost-open-source-project/hassio-ihost-silabs-multiprotocol-${TARGETARCH}:${BASE_VERSION}
+
+# Re-declare to expose the automatic value inside this build stage (used below).
+ARG TARGETARCH
 
 ENV S6_VERBOSITY=3 \
     DEVICE="/dev/ttyUSB0" \
@@ -36,7 +41,7 @@ RUN rm -rf /etc/s6-overlay/s6-rc.d/banner && \
     rm -rf /root/*.gbl
 
 
-RUN if [ "$TARGETARCH" = "armv7" ]; then \
+RUN if [ "$TARGETARCH" = "arm" ]; then \
         apt-get update && \
         apt-get install -y --no-install-recommends \
             python3-pip build-essential libffi-dev libssl-dev python3-dev \
